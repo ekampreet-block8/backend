@@ -19,6 +19,23 @@ connection.once("open", function() {
   console.log("success");
 });
 
+todoRoutes.route("/").get(function(req, res) {
+  Todo.find(function(err, todos) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(todos);
+    }
+  });
+});
+
+todoRoutes.route("/:id").get(function(req, res) {
+  let id = req.params.id;
+  Todo.findById(id, function(err, todo) {
+    res.json(todo);
+  });
+});
+
 app.listen(PORT, function() {
   console.log("Server is running on port: " + PORT);
 });
