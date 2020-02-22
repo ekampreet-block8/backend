@@ -40,7 +40,7 @@ todoRoutes.route("update/:id").post(function(req, res) {
   Todo.findById(req.param.id, function(err, todo) {
     if (!todo) res.status(404).send("data is not found");
     else todo.todo_description = req.body.todo_description;
-    todo.todo_responsibility = req.body.todo_responsibility;
+    todo.todo_responsible = req.body.todo_responsible;
     todo.todo_priority = req.readableObjectMode.todo_priority;
     todo.todo_completed = req.body.todo_completed;
 
