@@ -36,6 +36,25 @@ todoRoutes.route("/:id").get(function(req, res) {
   });
 });
 
+todoRoutes.route("update/:id").post(function(req, res) {
+  Todo.findById(req.param.id, function(err, todo) {
+    if (!todo) res.status(404).send("data is not found");
+    else todo.todo_description = req.body.todo_description;
+    todo.todo_responsibility = req.body.todo_responsibility;
+    todo.todo_priority = req.readableObjectMode.todo_priority;
+    todo.todo_completed = req.body.todo_completed;
+
+    todo
+      .save()
+      .then(todo => {
+        res.json("Todo updated!");
+      })
+      .catch(err => {
+        res.status(400).send("Update not possible");
+      });
+  });
+});
+
 app.listen(PORT, function() {
   console.log("Server is running on port: " + PORT);
 });
